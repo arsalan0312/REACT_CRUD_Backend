@@ -19,6 +19,7 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 builder.Services.AddDbContext<REACT_CRUD.ContextDB.TestDBContext>(opts => opts.UseSqlServer(builder.Configuration.GetConnectionString("reactDBConnection")));
 
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -34,7 +35,17 @@ builder.Services.AddCors(options =>
       });
 });
 
+
+
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider
+        .GetRequiredService<REACT_CRUD.ContextDB.TestDBContext>();
+
+    // Here is the migration executed
+    dbContext.Database.Migrate();
+}
 
 app.UseCors(CORSOpenPolicy);
 
