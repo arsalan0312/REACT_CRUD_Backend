@@ -33,7 +33,7 @@ namespace REACT_CRUD.Repository
 
         public async Task<List<DepartmentType>> GetListAsync()
         {
-            return await _contextapp.DepartmentTypes.Where(x => x.IsDeleted == false).ToListAsync();
+            return await _contextapp.DepartmentTypes.Where(x => x.IsDeleted != true).ToListAsync();
         }
 
         public async Task<DepartmentType> PostAsync(DepartmentTypeDTO departmentTypeModel)

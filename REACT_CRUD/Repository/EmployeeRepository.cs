@@ -86,7 +86,7 @@ namespace REACT_CRUD.Repository
 
         public async Task<List<Employee>> GetListAsync()
         {
-            return await _contextapp.Employees.Where(x=>x.IsDeleted == false).Include(x => x.DepartmentTypes).ToListAsync();
+            return await _contextapp.Employees.Where(x=>x.IsDeleted != true).Include(x => x.DepartmentTypes).ToListAsync();
         }
     }
 }
